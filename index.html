@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 八下理化：魔法補考大挑戰 🌟</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+        
+        body { 
+            font-family: 'Nunito', 'Noto Sans TC', sans-serif; 
+            background-color: #f0fdf4;
+            background-image: radial-gradient(#dcfce7 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+        
+        .bouncy { transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .bouncy:active { transform: scale(0.96); }
+        
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { 
+            0% { opacity: 0; transform: translateY(15px); } 
+            100% { opacity: 1; transform: translateY(0); } 
+        }
+
+        .img-shadow { filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); border-radius: 12px; }
+        
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f0fdf4; }
+        ::-webkit-scrollbar-thumb { background: #86efac; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #4ade80; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const questions = [
+            // 第一部份 1~20題
+            {
+                id: 1, part: 1,
+                q: "下列有關有機化合物與無機化合物的敘述，何者正確？",
+                opts: ["(A) 有機化合物均含有碳元素", "(B) 有機化合物必來自於生物體中", "(C) 無機化合物都不含碳元素", "(D) 蘇打粉與地瓜粉皆為白色粉末，兩者都屬於無機化合物"],
+                ans: 0,
+                exp: "有機化合物**一定含有碳元素**，但含碳不一定就是有機化合物（例如二氧化碳 CO<sub>2</sub>、碳酸鹽類等屬於無機物）。<br><br>👉 (B) 錯。有機物也可以在實驗室用人工合成（像尿素），不一定要來自生物體。<br>👉 (C) 錯。像 CO<sub>2</sub> 就是含碳的無機物。<br>👉 (D) 錯。地瓜粉是澱粉，屬於有機化合物。"
+            },
+            {
+                id: 2, part: 1,
+                q: "下列日常生活中的物質，屬於有機化合物有哪幾種？<br>甲.甘油；乙.石墨；丙.葡萄糖；丁.尿素；戊.食鹽；己.碳酸鈣。",
+                opts: ["(A) 甲乙丙", "(B) 丙丁戊", "(C) 丁戊己", "(D) 甲丙丁"],
+                ans: 3,
+                exp: "我們來點名囉！<br>✨ **有機化合物**：甲（甘油）、丙（葡萄糖）、丁（尿素）。<br>👉 **無機化合物**：乙（石墨，純碳）、戊（食鹽，沒有碳）、己（碳酸鈣，含碳的無機物例外）。<br>所以答案是甲、丙、丁，選 (D)！"
+            },
+            {
+                id: 3, part: 1,
+                q: "小澄操作理化實驗步驟如下：實驗一：用鋁箔緊密包覆竹筷並加熱。實驗二：將實驗一鋁箔內的黑色產物與黑色氧化銅均勻混合後，放入試管中並加熱。若兩實驗皆完全反應，關於上述兩個實驗步驟，下列敘述何者錯誤？",
+                img: "第3題圖片.png",
+                opts: ["(A) 實驗一竹筷可用麵粉取代", "(B) 實驗一與實驗二皆有黑色的產物", "(C) 實驗二產生的氣體可使澄清石灰水發生沉澱混濁現象", "(D) 實驗二中的氧化銅被還原成銅，表示實驗一中黑色產物的活性較銅大"],
+                ans: 1,
+                exp: "👉 實驗一：是「乾餾」實驗。竹筷是有機物，加熱後會留下黑色的木炭（碳）。麵粉也是有機物，所以可以取代。(A正確)<br>👉 實驗二：木炭（碳）加上氧化銅加熱，會發生氧化還原。碳會搶走氧，變成二氧化碳氣體（能讓澄清石灰水變混濁，C正確）。<br>👉 氧化銅被搶走氧，還原成了「紅棕色」的銅金屬！代表碳的活性比銅大。(D正確)<br>✨ 所以實驗二的產物是紅棕色的銅，不是黑色的喔！(B) 敘述錯誤。"
+            },
+            {
+                id: 4, part: 1,
+                q: "圖為(X)、(Y)兩個分子模型。已知其中一個是乙醇，常溫下為液體；另一個是甲醚，常溫下為氣體。請根據模型與常識判斷下列敘述哪些正確？<br>甲. (X)是甲醚，(Y)是乙醇<br>乙. 常溫時(X)為氣態、(Y)為液態<br>丙. (X)、(Y)的分子式皆為 C<sub>2</sub>H<sub>6</sub>O<br>丁. (X)、(Y)因為原子排列方式不同，具有不同的性質。",
+                img: "第4題圖片.png",
+                opts: ["(A) 甲、乙、丙", "(B) 乙、丙、丁", "(C) 甲、丙、丁", "(D) 甲、乙、丙、丁"],
+                ans: 3,
+                exp: "這兩個分子就像是用同樣的積木拼出來的不同玩具！<br>把它們的原子數一數，都是 2個碳、6個氫、1個氧（分子式都是 C<sub>2</sub>H<sub>6</sub>O，丙正確）。<br>這在化學上叫做「同分異構物」。<br><br>👉 (X) 氧原子在中間，是「甲醚」（氣體）。(甲、乙正確)<br>👉 (Y) 氧原子在旁邊連著氫 (-OH)，是「乙醇」（酒精，液體）。<br>👉 因為排列方式不同，所以它們的性質完全不一樣！(丁正確)<br>四個全對，選 (D)。"
+            },
+            {
+                id: 5, part: 1,
+                q: "已知某烴類化合物在空氣中完全燃燒後，產生的二氧化碳與水的分子個數比為 1：2。請問此化合物可能為下列何者？",
+                opts: ["(A) 甲烷", "(B) 乙烷", "(C) 丙烷", "(D) 丁烷"],
+                ans: 0,
+                exp: "烴類只有碳(C)和氫(H)。燃燒時，碳變成二氧化碳(CO<sub>2</sub>)，氫變成水(H<sub>2</sub>O)。<br><br>👉 產生的 CO<sub>2</sub> 和 H<sub>2</sub>O 比例是 1 : 2。<br>👉 代表原本化合物裡的 碳 和 氫 原子比例是：<br>碳 = 1 個 (來自1個CO<sub>2</sub>)<br>氫 = 2 × 2 = 4 個 (來自2個H<sub>2</sub>O)<br>✨ 碳：氫 = 1：4，這就是甲烷 (CH<sub>4</sub>) 的化學式！"
+            },
+            {
+                id: 6, part: 1,
+                q: "小鈞在壽司店點了炙燒鮭魚壽司，發現廚師拿著瓦斯噴槍對著鮭魚壽司進行炙燒。等炙燒完畢後，廚師從噴槍取下瓦斯罐，小鈞發現瓦斯罐的成分註明：丁烷。請問丁烷的化學成分與下列哪一種物質最相似？",
+                opts: ["(A) 食醋", "(B) 酒精", "(C) 天然氣", "(D) 乙酸乙酯"],
+                ans: 2,
+                exp: "丁烷 (C<sub>4</sub>H<sub>10</sub>) 只有碳和氫，屬於「烴類」。<br><br>👉 (A) 食醋是有機酸。<br>👉 (B) 酒精是醇類。<br>✨ (C) 天然氣的主要成分是甲烷，也只含有碳和氫，同樣屬於「烴類」，所以它們是親戚，性質最相似喔！<br>👉 (D) 乙酸乙酯是酯類。"
+            },
+            {
+                id: 7, part: 1,
+                q: "有關常見醇類的基本性質敘述，下列何者錯誤？",
+                opts: ["(A) 甘油的外觀像油、摸起來滑滑的，但化學分類上屬於醇類", "(B) 在醫藥上常用的碘酒溶液中，乙醇是扮演溶質的角色", "(C) 甲醇無色具有毒性，是結構最簡單的醇類", "(D) 乙醇俗稱酒精，具有殺菌作用，一般酒類中都含有乙醇"],
+                ans: 1,
+                exp: "👉 (A) 正確。甘油的真名是「丙三醇」，含有 -OH 喔。<br>✨ (B) 錯誤！碘酒是把「固體碘」溶解在「酒精（乙醇）」裡面。所以碘是溶質，酒精是幫忙溶解的「溶劑」。<br>👉 (C) 正確。甲醇（木精）喝了會失明甚至有生命危險。<br>👉 (D) 正確。75% 的酒精殺菌效果最好。"
+            },
+            {
+                id: 8, part: 1,
+                q: "關於有機酸的敘述，下列何者錯誤？",
+                opts: ["(A) 有機酸水溶液會解離出氫離子", "(B) 許多水果有酸味，是因為富含有機酸", "(C) 醋酸與硫酸皆屬於有機酸", "(D) 螞蟻叮咬時會分泌甲酸造成皮膚紅腫、發癢"],
+                ans: 2,
+                exp: "✨ (C) 是錯的！醋酸 (乙酸) 含有碳，是有機酸。但「硫酸 (H<sub>2</sub>SO<sub>4</sub>)」根本沒有碳元素，它是「無機酸」！<br>👉 (A) 正確。酸的特性就是會在水裡解離出 H<sup>+</sup>。<br>👉 (B) 正確。檸檬酸、蘋果酸都是天然有機酸。<br>👉 (D) 正確。甲酸又叫蟻酸，被螞蟻咬會痛就是因為它。"
+            },
+            {
+                id: 9, part: 1,
+                q: "科學家發現，蜜蜂在螫人時，毒液中會釋放出微量的有機化合物「乙酸異戊酯」，其他蜜蜂聞到這股「香蕉味」就會立刻趕來支援。在實驗室中可以利用「乙酸」與「異戊醇」反應來製備。有關此反應及物質的敘述，下列何者正確？",
+                opts: ["(A) 乙酸異戊酯密度比水小，且不易溶於水", "(B) 反應時通常會加入濃鹽酸，主要是作為催化劑使用", "(C) 反應物中的乙酸屬於有機化合物，異戊醇則屬於無機化合物", "(D) 製造乙酸異戊酯的原料之一「異戊醇」，與一般酒類中的成分相同"],
+                ans: 0,
+                exp: "這是一個「酯化反應」：有機酸 + 醇 → 酯 + 水。<br>✨ (A) 正確。產生的「酯類」通常有水果香味，而且難溶於水、密度比水小，會浮在水面上。<br>👉 (B) 錯。實驗室會加「濃硫酸」當催化劑，順便吸水。<br>👉 (C) 錯。乙酸和異戊醇都有碳，都是有機化合物。<br>👉 (D) 錯。酒類裡面的成分主要是「乙醇（酒精）」，不是異戊醇。"
+            },
+            {
+                id: 10, part: 1,
+                q: "小瑋將無色的烴類液體、乙醇、醋酸、酯類隨機裝入甲、乙、丙、丁四支試管中，並在每支試管各加入 5 mL 的水，實驗結果如附圖所示。關於各試管中物質的敘述，下列何者正確？",
+                img: "第10題圖片.png",
+                opts: ["(A) 甲加入小蘇打固體會產生二氧化碳", "(B) 乙與甲混合加熱，不需要加催化劑即可快速製得丙", "(C) 丙與水不互溶，可利用濾紙過濾來分離兩者", "(D) 丁屬於烴類，完全燃燒後的產物只有二氧化碳"],
+                ans: 0,
+                exp: "我們先當小偵探分類：<br>甲：不分層、呈酸性(藍變紅) 👉 醋酸<br>乙：不分層、中性 👉 乙醇<br>丙：分層、有香味 👉 酯類<br>丁：分層、中性、無香味 👉 烴類<br><br>✨ (A) 正確！甲是醋酸，酸碰到小蘇打（碳酸氫鈉）會冒出二氧化碳泡泡。<br>👉 (B) 錯。甲(酸)和乙(醇)反應要加「濃硫酸」當催化劑才會快。<br>👉 (C) 錯。丙(酯)和水都是液體，雖然不互溶，但不能用濾紙過濾，要用分液漏斗。<br>👉 (D) 錯。烴類完全燃燒會產生二氧化碳「和水」。"
+            },
+            {
+                id: 11, part: 1,
+                q: "下列有關聚合物與其單體的配對，何者錯誤？",
+                opts: ["(A) 澱粉；葡萄糖", "(B) 蛋白質；脂肪酸", "(C) 纖維素；葡萄糖", "(D) 聚乙烯（PE）；乙烯"],
+                ans: 1,
+                exp: "聚合物就像是一串長長的珍珠項鍊，單體就是一顆顆的珍珠。<br>👉 澱粉和纖維素的珍珠都是「葡萄糖」。 (A、C正確)<br>👉 聚乙烯的珍珠是「乙烯」。 (D正確)<br>✨ 錯在 (B)。蛋白質這條項鍊的珍珠是「胺基酸」！(脂肪酸是做油脂的材料)。"
+            },
+            {
+                id: 12, part: 1,
+                q: "關於熱塑性聚合物與熱固性聚合物的敘述，下列何者錯誤？",
+                opts: ["(A) 保麗龍屬於鏈狀結構，因此回收後可重新加熱塑形", "(B) 鍋具手把因選用熱固性塑膠，若加熱溫度過高，手把易熔化變形", "(C) 寶特瓶為受熱易熔化的鏈狀聚合物", "(D) 不論是熱塑性或熱固性聚合物，皆是由許多小分子單體連接而成"],
+                ans: 1,
+                exp: "塑膠分兩種：<br>1. 熱塑性（鏈狀）：像巧克力，加熱會熔化變軟，可以重新塑形（寶特瓶、保麗龍）。<br>2. 熱固性（網狀）：像餅乾，烤熟定型後再加熱也不會熔化，只會烤焦。<br><br>✨ (B) 敘述錯誤。鍋具手把為了防燙，就是特地選用「加熱不會熔化變形」的熱固性塑膠！如果會熔化，煮湯時手把就融掉啦！"
+            },
+            {
+                id: 13, part: 1,
+                q: "警探小廷在犯罪現場發現了嫌疑犯不慎留下的衣服碎片。小廷將碎片帶回實驗室進行成分分析，鑑定報告顯示：「該衣物纖維的主要成分為蛋白質。」根據小廷的推斷嫌疑犯當時穿著的衣物可能是下列何者？",
+                opts: ["(A) 由木屑和棉碎屑溶解後重新抽絲製成的「嫘縈背心」", "(B) 以石油為原料、經人工方法合成的「耐綸外套」", "(C) 由纖維素組成、吸汗透氣的「純棉襯衫」", "(D) 屬於天然纖維、保暖禦寒的「純羊毛毛衣」"],
+                ans: 3,
+                exp: "尋找「蛋白質」做的衣服！<br>👉 動物身上的毛髮（蠶絲、羊毛）主要成分就是蛋白質。燃燒時會有燒焦羽毛的臭味。<br>👉 植物纖維（棉、麻）成分是纖維素。<br>👉 人造纖維（耐綸、聚酯纖維）是石油做的。<br>✨ 所以嫌犯穿的是動物纖維做的「純羊毛毛衣」，選 (D)。"
+            },
+            {
+                id: 14, part: 1,
+                q: "高雄氣爆事件是因為地下管線中的丙烯（C<sub>3</sub>H<sub>6</sub>）大量外洩而造成。丙烯是化學工業中重要的原料，常用來製造日常生活中常見的塑膠製品聚丙烯（PP）。有關丙烯與聚丙烯的相關敘述，下列何者錯誤？",
+                opts: ["(A) 丙烯只含有碳和氫兩種元素，屬於烴類化合物", "(B) 丙烯在常溫常壓下為氣體，且易溶於水", "(C) 丙烯在空氣中完全燃燒後，會產生二氧化碳與水", "(D) 聚丙烯（PP）受熱會軟化變形，屬於熱塑性聚合物"],
+                ans: 1,
+                exp: "👉 (A) 丙烯只有C和H，是烴類沒錯。<br>✨ (B) 錯在這裡！烴類（像甲烷、丙烷、丙烯）通常是「難溶於水」的。如果它很容易溶於水，下雨天管線外洩可能就直接溶進水裡了。<br>👉 (C) 烴類燃燒一定會產生 CO<sub>2</sub> 和 H<sub>2</sub>O。<br>👉 (D) PP(聚丙烯)是鏈狀的熱塑性塑膠，受熱會軟化變形。"
+            },
+            {
+                id: 15, part: 1,
+                q: "進行肥皂製造（皂化反應）時，若剛好欠缺氫氧化鈉，可使用下列哪種物品代替？",
+                img: "第15題圖片.png",
+                opts: ["(A) CH<sub>3</sub>COOH", "(B) CH<sub>3</sub>OH", "(C) KOH", "(D) CH<sub>3</sub>COOC<sub>2</sub>H<sub>5</sub>"],
+                ans: 2,
+                exp: "做肥皂的食譜：油脂 ＋ 強鹼 → 肥皂 ＋ 甘油。<br><br>我們需要的是「強鹼」。<br>沒有強鹼氫氧化鈉 (NaOH) 怎麼辦？那就找它的好兄弟「氫氧化鉀 (KOH)」來代替！(C正確)<br>👉 (A) 是酸、(B) 是醇、(D) 是酯，它們都不是鹼喔。"
+            },
+            {
+                id: 16, part: 1,
+                q: "有關於肥皂的製造流程及其特性，小哲和同學們分別進行了以下的發表，哪一位同學的說法最為合理？",
+                opts: ["(A) 小哲：倒入飽和食鹽水中可產生更多肥皂，並促使肥皂析出", "(B) 小丞：製造肥皂時加入酒精是作為催化劑，能加速反應速率", "(C) 小維：肥皂分子由許多碳原子和氫原子組成的長鏈端是親水性", "(D) 小奇：肥皂水溶液可使石蕊試紙呈藍色，可知水溶液中的 [H<sup>+</sup>] < [OH<sup>-</sup>]"],
+                ans: 3,
+                exp: "來糾正大家的錯誤觀念：<br>👉 小哲：加食鹽水（鹽析）是為了讓肥皂和甘油「分離」浮上來，並「不會」變出更多肥皂。<br>👉 小丞：加酒精是為了當「溶劑」，讓油和鹼水能混在一起，不是催化劑。<br>👉 小維：肥皂的長長碳氫鏈是「親油端」，短短的鈉離子那頭才是「親水端」。<br>✨ 小奇：完全正確！肥皂是弱鹼性，鹼性水溶液裡面的 OH<sup>-</sup> (氫氧根) 會比 H<sup>+</sup> (氫離子) 多，所以石蕊試紙會變藍色。"
+            },
+            {
+                id: 17, part: 1,
+                q: "將製造好的肥皂放入含有沙拉油與水的試管中並搖動，塞上橡皮塞並搖動數分鐘後，靜置於試管架上，有關試管內的情形，下列何者正確？",
+                img: "第17題圖片.png",
+                opts: ["(A) 油水分層，肥皂沉於試管底部", "(B) 油水與肥皂均勻乳化混合在一塊，不分層", "(C) 肥皂浮在油層上方", "(D) 油水恢復明確分層"],
+                ans: 1,
+                exp: "油和水本來是不合的，會分成兩層。<br><br>✨ 但是加入了「肥皂」這個超級和事佬！肥皂分子的親油端會抓住油，親水端會拉住水。劇烈搖晃後，肥皂會把大油滴變成超微小的小油滴，懸浮在水裡面。<br>這個神奇的過程叫做「乳化作用」。最後整管會變成均勻混濁、不分層的狀態，選 (B)！"
+            },
+            {
+                id: 18, part: 1,
+                q: "根據文章內容，下列敘述何者正確？（原子量：C=12，O=16）",
+                img: "第18題圖片.png",
+                opts: ["(A) 工廠每生產一瓶「茶裏王」茶飲約需排放 197公克的二氧化碳", "(B) 若將寶特瓶內的茶飲改成礦泉水，則標籤上的碳足跡應標示為 0公克", "(C) 飲料工廠開冷氣與機器運作所消耗的電力，不屬於這瓶茶飲計算碳足跡的範圍", "(D) 茶裏王空瓶若不回收，其生命週期產生的溫室氣體，經由換算相當於約 6 莫耳的二氧化碳"],
+                ans: 3,
+                exp: "「碳足跡」是指一個產品從出生（原料、製造）到死亡（回收、丟棄）整個一生所排放的二氧化碳總量。<br><br>👉 (A) 197公克是它「一生」的排放量，不只是工廠製造的階段。<br>👉 (B) 礦泉水也有塑膠瓶，製造、運送都會排碳，絕對不會是 0。<br>👉 (C) 工廠用電當然算在製造階段的碳足跡裡。<br>✨ (D) 正確。文章說不回收碳足跡會變 267 公克。CO<sub>2</sub>分子量是 44 (12+16×2)。267 ÷ 44 大約等於 6 莫耳。"
+            },
+            {
+                id: 19, part: 1,
+                q: "除了茶飲外，小惟在便利商店發現運動飲料的瓶身也有碳足跡標示和回收標誌 1號（PET），飲料瓶常是由塑膠製成，塑膠加熱後容易軟化變形，請問運動飲料的空瓶屬於甲〜戊中的哪幾個類別？<br>甲.有機聚合物 乙.天然聚合物 丙.合成聚合物 丁.網狀聚合物 戊.鏈狀聚合物",
+                img: "第19題圖片.png",
+                opts: ["(A) 甲、丙、戊", "(B) 甲、丙、丁", "(C) 甲、乙、丁", "(D) 甲、乙、戊"],
+                ans: 0,
+                exp: "寶特瓶 (PET) 的身家調查：<br>1. 它是含碳的大分子：甲. 有機聚合物。<br>2. 它是工廠用石油化學做出來的，不是自然界長出來的：丙. 合成聚合物。<br>3. 題目說它「加熱後容易軟化變形」，這就是熱塑性塑膠的特徵，分子長得像一條一條的鏈子：戊. 鏈狀聚合物。<br><br>✨ 組合起來就是 甲、丙、戊，選 (A)。"
+            },
+            {
+                id: 20, part: 1,
+                q: "根據上文內容，下列產品選用導電聚合物作為材料的原因，何者最合理？",
+                img: "第20題圖片.png",
+                opts: ["(A) 高壓電纜：因為其導電效率高於金屬，能減少長距離傳輸的電力損耗", "(B) 智慧衣物：因為其兼具導電與柔軟彎曲的特性，能配合人體活動運作", "(C) 電子紙顯示器：因為其具有極高的硬度，可以有效保護螢幕不受損傷", "(D) 智慧手環：因為其內部的電子不易移動，可以達到節能與省電的目的"],
+                ans: 1,
+                exp: "「導電聚合物」就是會導電的塑膠！它結合了金屬的「導電性」和塑膠的「輕巧、柔軟、耐彎折」。<br><br>👉 (A) 錯。文章有說金屬導電效率還是比較高。<br>✨ (B) 超級合理！把它織進衣服裡，因為它跟塑膠一樣柔軟，你運動彎曲時線路才不會斷掉。<br>👉 (C) 錯。它是柔軟的，沒有極高的硬度。<br>👉 (D) 錯。它叫「導電」聚合物，裡面的電子當然可以移動啊。"
+            },
+
+            // 第二部份 21~40題
+            {
+                id: 21, part: 2,
+                q: "大雄扭了轉蛋，他想將這 2 個心愛的角色吊在書包上，一直在考慮到底哪一個要在上面，哪一個要在下面。他測量了大耳狗的質量是 10 公克，布丁狗是 30 公克。請問下列敘述何者正確？（T<sub>1</sub>、T<sub>2</sub>、T<sub>3</sub>、T<sub>4</sub> 分別代表該段繩子的拉力，繩重忽略不計）",
+                img: "第21題圖片.png",
+                opts: ["(A) 吊法一中，較重的布丁狗在下面，所以 T<sub>2</sub> > T<sub>1</sub>", "(B) 吊法二中，較重的布丁狗在上面，所以 T<sub>3</sub> > T<sub>1</sub>", "(C) 怎麼吊掛總重量都一樣，所以都是 T<sub>1</sub> = T<sub>2</sub> = T<sub>3</sub> = T<sub>4</sub>", "(D) 這四段繩子中，T<sub>1</sub> = T<sub>3</sub> > T<sub>2</sub> > T<sub>4</sub>"],
+                ans: 3,
+                exp: "吊法一中：最上方的繩子 T<sub>1</sub> 要承受大耳狗和布丁狗的總重量 (10 + 30 = 40 gw)；中間的繩子 T<sub>2</sub> 只要承受下面的布丁狗 (30 gw)。<br><br>吊法二中：最上方的繩子 T<sub>3</sub> 要承受布丁狗和大耳狗的總重量 (30 + 10 = 40 gw)；中間的繩子 T<sub>4</sub> 只要承受下面的大耳狗 (10 gw)。<br><br>👉 T<sub>1</sub> 和 T<sub>3</sub> 都要拉起全部的重量，所以 T<sub>1</sub> = T<sub>3</sub> = 40 gw。<br>👉 T<sub>2</sub> 是 30 gw，T<sub>4</sub> 是 10 gw。<br>✨ 排列起來就是 T<sub>1</sub> = T<sub>3</sub> > T<sub>2</sub> > T<sub>4</sub>，(D) 才是正確的喔！"
+            },
+            {
+                id: 22, part: 2,
+                q: "一個靜止的物體在光滑的水平面上同時受四力（3kgw、6kgw、8kgw、9kgw）作用，若仍維持靜止狀態，則此物體所受合力為何？",
+                opts: ["(A) 0 kgw", "(B) 6 kgw", "(C) 8 kgw", "(D) 9 kgw"],
+                ans: 0,
+                exp: "根據牛頓第一運動定律（慣性定律），只要物體保持「靜止不動」或是「等速度直線運動」，就代表它處於力的平衡狀態。<br><br>✨ 既然物體維持「靜止」，就表示四面八方推來推去的力量剛好都互相抵銷了，所以合力一定等於 0！"
+            },
+            {
+                id: 23, part: 2,
+                q: "何者是接觸力？",
+                opts: ["(A) 浮力", "(B) 磁力", "(C) 重力", "(D) 都不是"],
+                ans: 0,
+                exp: "力可以分成兩大類：<br>1. **超距力（非接觸力）**：像有魔法一樣，不用碰到就能產生力量。例如：重力（蘋果掉下來）、磁力（磁鐵吸鐵釘）、靜電力。<br>2. **接觸力**：必須要「碰到」才會產生的力量。例如：推力、拉力、摩擦力。<br><br>✨ (A) 浮力也是一種接觸力喔！物體必須「泡在（接觸）」水或其他液體裡面，才會感受到水把它往上推的力量。"
+            },
+            {
+                id: 24, part: 2,
+                q: "將 300 公克重的書靜置於水平桌面上，其摩擦力與水平作用力的關係如右圖，請問當書從靜止開始到保持移動的狀態，下列哪一項敘述正確？",
+                img: "第24題圖片.png",
+                opts: ["(A) 書本靜止時，如果推動它，此時書本僅受摩擦力作用而已", "(B) 書本靜止時，使用 35 公克重的力量推它，它會運動", "(C) 至少需要 45 公克重的力才恰可推動這本書", "(D) 摩擦力會一直隨著施力大小而改變"],
+                ans: 2,
+                exp: "看圖表找線索：這張圖的最高點是 45 gw，代表這本書的「最大靜摩擦力」是 45 gw。超過這個力量，書才會開始滑動。<br><br>👉 (A) 推動書本時，書本同時受到你的「推力」和阻礙你的「摩擦力」。<br>👉 (B) 推力 35 gw 小於最大靜摩擦力 45 gw，書本推不動，還是靜止的。<br>✨ (C) 正確！要打破靜止狀態，推力必須至少達到最大靜摩擦力 45 gw。<br>👉 (D) 書本開始滑動後，摩擦力會變成固定的「動摩擦力」（圖中水平的那條線，30 gw），就不會再隨便改變了。"
+            },
+            {
+                id: 25, part: 2,
+                q: "空教室裡的講台上靜置一張 10kgw 的講桌，此時講桌受到的摩擦力是下列何者？",
+                opts: ["(A) 0", "(B) 10 kgw", "(C) 20 kgw", "(D) 100 kgw"],
+                ans: 0,
+                exp: "摩擦力是一個很「被動」的力量，它的出現是為了阻止物體滑動。<br><br>✨ 講桌安安靜靜地放在平平的講台上，沒有人去推它，它也沒有想往旁邊滑的趨勢，所以這個時候根本不需要摩擦力來阻止它。<br>因此，靜摩擦力是 0！"
+            },
+            {
+                id: 26, part: 2,
+                q: "如右圖，阿雄將兩個一模一樣的長方形木塊，以甲、乙、丙三種方式排列。若推動三種方式所排列的木塊，所需的最小水平外力分別為 F<sub>甲</sub>、F<sub>乙</sub>、F<sub>丙</sub>，則三者的關係應為下列何者？",
+                img: "第26題圖片.png",
+                opts: ["(A) F<sub>甲</sub> > F<sub>乙</sub> > F<sub>丙</sub>", "(B) F<sub>甲</sub> < F<sub>乙</sub> < F<sub>丙</sub>", "(C) F<sub>甲</sub> > F<sub>乙</sub> = F<sub>丙</sub>", "(D) F<sub>甲</sub> = F<sub>乙</sub> = F<sub>丙</sub>"],
+                ans: 3,
+                exp: "要推動木塊的最小力量，取決於「最大靜摩擦力」。<br>影響最大靜摩擦力的因素只有兩個：<br>1. **接觸面的粗糙程度**（材質）。<br>2. **壓在面上的總重量**（正向力）。<br><br>⚠️ 注意！它跟「接觸面積的大小」完全沒有關係！<br>✨ 這三種排法雖然看起來不一樣，但它們都是「兩個木塊的重量」，且接觸的桌面材質都一樣。所以它們的最大靜摩擦力一模一樣，推動它們所需的力 F<sub>甲</sub> = F<sub>乙</sub> = F<sub>丙</sub>。"
+            },
+            {
+                id: 27, part: 2,
+                q: "手拿玻璃杯兩側(如圖所示)，此時玻璃杯不會落下，若加大握力，此時兩人說法何者正確？",
+                img: "第27題圖片.png",
+                opts: ["(A) 兩人皆正確", "(B) 兩人皆錯誤", "(C) 只有小叮噹是正確的", "(D) 只有大雄是正確的"],
+                ans: 0,
+                exp: "杯子為什麼不會掉下去？因為手給杯子一個向上的「靜摩擦力」，剛好抵銷了杯子向下的「重力」。<br><br>👉 小叮噹說「摩擦力不變」：對！只要杯子沒掉下來，向上的靜摩擦力就一直等於杯子的重量。用力捏杯子，只是讓「極限（最大靜摩擦力）」變大，但實際發揮的靜摩擦力還是跟杯重一樣。<br>👉 大雄說「摩擦力向上」：對！重力把杯子往下拉，摩擦力為了阻止它掉下去，當然是往上拉囉。<br>✨ 所以兩人都聰明，都答對了！"
+            },
+            {
+                id: 28, part: 2,
+                q: "有一個未知重量的保溫瓶靜置於水平桌面上，在瓶內倒入一半的純水與將保溫瓶裝滿時，作用於桌面的壓力比為 2：3，若此保溫瓶的容量為 600 mL，則保溫瓶的重量約為多少？",
+                img: "第28題圖片.png",
+                opts: ["(A) 100 gw", "(B) 200 gw", "(C) 300 gw", "(D) 400 gw"],
+                ans: 2,
+                exp: "壓力 = 總重量 ÷ 接觸面積。<br>因為都是同一個保溫瓶，底部面積一樣，所以「壓力比」就等於「總重量比」。<br><br>1. 水的密度是 1 g/cm³。保溫瓶容量 600 mL，裝滿水就是 600 公克 (gw)；裝一半的水是 300 公克 (gw)。<br>2. 假設空保溫瓶重 W。<br>一半水的總重：W + 300<br>裝滿水的總重：W + 600<br>3. 題目說重量比是 2 : 3，所以 (W + 300) : (W + 600) = 2 : 3。<br>交叉相乘：3 × (W + 300) = 2 × (W + 600)  👉  3W + 900 = 2W + 1200<br>算出來 W = 300 gw。瓶子重 300 公克！"
+            },
+            {
+                id: 29, part: 2,
+                q: "宜靜穿著平底運動鞋站在地板上，若改成高跟鞋，則鞋底對地板的...",
+                opts: ["(A) 施力：相等；壓力：變大", "(B) 施力：相等；壓力：變小", "(C) 施力：變大；壓力：變小", "(D) 施力：變大；壓力：變大"],
+                ans: 0,
+                exp: "來釐清「施力」和「壓力」的不同：<br>👉 **施力（總重力）**：宜靜換鞋子，但她的體重沒有變！所以對地板的總施力是「相等」的。<br>👉 **壓力**：壓力 = 總施力 ÷ 接觸面積。高跟鞋的鞋跟很尖，跟地板的接觸面積比平底鞋小非常多！在一樣的體重下，面積變小，產生的「壓力」就會「變大」（被踩到會超痛！）。<br>✨ 結論：施力相等；壓力變大。"
+            },
+            {
+                id: 30, part: 2,
+                q: "家中馬桶的示意圖，其原理主要是利用這段 U 形管(斜線區)彎道內貯存的水進行「水封」，阻止化糞池的臭氣進入室內。請問這是何種原理的應用？",
+                img: "第30題圖片.png",
+                opts: ["(A) 連通管原理", "(B) 帕斯卡原理", "(C) 浮力原理", "(D) 大氣壓力"],
+                ans: 0,
+                exp: "✨ **連通管原理**：幾個底部相通的容器，裡面裝同一種液體，靜止時大家的液面會一樣高。<br><br>馬桶底部的 U 形管就是一個連通管！沖水後，兩邊的水面會保持水平，這樣 U 形管底部就會一直積著一灘水（水封），臭氣就無法穿過這灘水跑到廁所裡了，是不是很聰明的設計！"
+            },
+            {
+                id: 31, part: 2,
+                q: "甲、乙兩個裝有水量不同的玻璃杯置於水平桌面，如附圖所示。則 P、Q所受液壓...",
+                img: "第31題圖片.png",
+                opts: ["(A) 相同", "(B) P > Q", "(C) P < Q", "(D) 視甲乙的水量而定"],
+                ans: 1,
+                exp: "水給的壓力（液壓）公式：壓力 = 深度 × 液體密度。<br>因為兩杯都是水（密度一樣），所以我們只要比「深度」就好了。<br><br>⚠️ 注意：「深度」是指從水面**往下垂直量**到那個點的距離！<br>看圖片，甲杯的水比較滿，從水面量到 P 點的深度，比從乙杯水面量到 Q 點的深度還要深。深度越深，壓力越大！所以 P 的液壓大於 Q (P > Q)。"
+            },
+            {
+                id: 32, part: 2,
+                q: "有關大氣壓力的敘述，請問下列哪些正確？<br>(甲) 一大氣壓約等於 1 kgw/cm² <br>(乙) 一般來說，玉山山頂的大氣壓力比臺南平地小，使零食的包裝袋膨脹 <br>(丙) 沒有大氣壓力，無法用吸管喝果汁 <br>(丁) 托里切利大氣壓力實驗中，玻璃管若有破洞，水銀柱垂直高度依然不變 <br>(戊) 托里切利大氣壓力實驗中，若用水柱，則一大氣壓能支撐的水柱高約為 1033.6 m <br>(己) 在托里切利測量大氣壓力的實驗中，玻璃管內水銀面距槽內水銀面的鉛直高度，與玻璃管傾斜的角度無關",
+                opts: ["(A) 僅甲乙丙己", "(B) 僅甲乙丙戊己", "(C) 僅乙丙戊己", "(D) 甲乙丙丁戊己"],
+                ans: 0,
+                exp: "我們來一一破解：<br>✨ (甲) 正確。1大氣壓 = 76cm水銀柱高 ≈ 1033.6 gw/cm²，差不多就是 1 kgw/cm²。<br>✨ (乙) 正確。越高的地方空氣越稀薄，氣壓越小。包裝袋裡的空氣壓力比外面大，就會往外撐膨脹。<br>✨ (丙) 正確。吸管喝水是把管內空氣吸走，靠「外面大氣壓力」把飲料壓進嘴裡的。<br>👉 (丁) 錯誤。玻璃管破洞，外面空氣跑進去，壓力抵銷，水銀柱就會掉下來。<br>👉 (戊) 錯誤。單位錯了！一大氣壓能撐起的水柱大約是 1033.6 **公分 (cm)**，大約 10 公尺高，不是 1033.6 公尺 (m)。<br>✨ (己) 正確。大氣壓力只看「垂直高度」，不管管子粗細或有沒有傾斜。<br><br>正確的是甲、乙、丙、己，選 (A)。"
+            },
+            {
+                id: 33, part: 2,
+                q: "U 形管內盛水，大、小兩活塞面積分別為 40 cm² 與 5 cm²，現於大活塞上放置一物重 560 gw，則在小活塞至少上需要出多少力量方可支撐起重物？",
+                img: "第33題圖片.png",
+                opts: ["(A) 5 gw", "(B) 40 gw", "(C) 56 gw", "(D) 70 gw"],
+                ans: 3,
+                exp: "這題要用千斤頂的秘密武器：**帕斯卡原理**！<br>在密閉液體中，不管哪裡的「壓力」都會一樣。壓力 = 力量 ÷ 面積。<br><br>小活塞的壓力 = 大活塞的壓力<br>公式：(小力量 ÷ 小面積) = (大力量 ÷ 大面積)<br>(小力量 ÷ 5) = (560 ÷ 40)<br>(小力量 ÷ 5) = 14<br>小力量 = 14 × 5 = 70 gw。<br><br>✨ 只要用 70 公克重的力，就能撐起 560 公克重的東西，超省力的啦！"
+            },
+            {
+                id: 34, part: 2,
+                q: "寵物自動給水器利用大氣壓力與水壓平衡原理。圖中 A、B 位於密閉儲水瓶內，C 位於開放水盤中，B 與 C 在同一水平面上。下列敘述何者正確？<br>(甲) B點壓力是由上方液柱及空氣柱所造成 <br>(乙) 在系統靜止平衡且水位蓋過連接口時，B、C 在同一水平面上，故 P<sub>B</sub> = P<sub>C</sub> <br>(丙) 若水盤內的水位下降，使管口露出，空氣進入後，儲水瓶的水會流出補充，使其水位也跟著下降 <br>(丁) 儲水瓶內 P<sub>A</sub> 等於當時外界大氣壓力。",
+                img: "第34題圖片.png",
+                opts: ["(A) 僅甲乙", "(B) 僅乙丙", "(C) 僅甲乙丙", "(D) 甲乙丙丁"],
+                ans: 2,
+                exp: "✨ (甲) 正確。B 點在水裡，所以受到的壓力來自它頭頂上的水，還有水面上的那團空氣。<br>✨ (乙) 正確。連通管原理，水沒在動的時候，同一高度的 B 和 C 壓力會一樣。<br>✨ (丙) 正確。狗狗喝了水，水位下降管口露出，空氣「咕嚕」跑進瓶子裡，打破了平衡，水就會流出來補充，直到管口又被水淹沒。<br>👉 (丁) 錯誤。如果 A 點（瓶內空氣）的壓力等於外面大氣壓力，那再加上水的重量，瓶口水早就噴出來了！為了保持平衡，A 點的壓力其實比外面大氣壓力「還要小」喔。<br><br>正確的是甲、乙、丙，選 (C)。"
+            },
+            {
+                id: 35, part: 2,
+                q: "曉瑄在水中加入一些冰塊，根據附圖所示，請問下列敍述何者錯誤？",
+                img: "第35題圖片.png",
+                opts: ["(A) 因冰塊皆未接觸杯底，故加入冰塊並不增加杯底所受的壓力", "(B) 加入冰塊後水面會上升，杯底所受的壓力會增加", "(C) 若冰塊逐漸融化，杯底所受的壓力不變", "(D) 冰塊逐漸融化，液面高度不變"],
+                ans: 0,
+                exp: "👉 (A) 是錯的。雖然冰塊沒碰到杯底，但它排開了水，讓整杯水的水面「變高」了！水深變深，杯底承受的水壓當然就變大了。<br>✨ (B) 正確。加入冰塊，水面上升，深度增加，杯底壓力增加。<br>✨ (C)、(D) 正確。這是一個很神奇的理化現象：冰塊浮在水上，它「融化成水之後的體積」，剛好會等於它原本在水下「排開水的體積」。所以冰塊融化，水面高度完全不會變！水深不變，杯底壓力也就不會變。"
+            },
+            {
+                id: 36, part: 2,
+                q: "小夫進行浮力實驗，將一均勻的實心圓柱掛在彈簧秤下端，使其逐漸沒入水中，測得其底部沒入水中的深度（h）與彈簧秤讀數關係圖，請問下列敘述何者錯誤？",
+                img: "第36題圖片.png",
+                opts: ["(A) 物體完全沒入水中時，所受浮力為 200 gw", "(B) 線段 BC 表示當物體全部沉入水中", "(C) 此實心圓柱高為 4 cm", "(D) 當圓柱體完全沒入水面後，愈深浮力愈大"],
+                ans: 3,
+                exp: "看圖說故事：<br>開始沒碰到水時 (h=0)，彈簧秤拉力是 500 gw，這就是圓柱原本的重量。<br>慢慢放進水裡，指針數字越來越小，代表水給了向上的「浮力」。<br>當深度到了 4 cm 時，指針停在 300 gw，之後再深指針也不動了。<br><br>👉 浮力 = 原重 - 水中重 = 500 - 300 = 200 gw。 (A正確)<br>👉 h=4 cm 後指針不再變，代表物體已經「全部滅頂」了，所以圓柱高度是 4 cm。 (B、C正確)<br>✨ (D) 錯誤！阿基米德說：浮力看的是「排開液體的體積」。當物體全部沉入水中後，排開水的體積已經是極限了，不管再往下沉多深，浮力都不會再增加囉！"
+            },
+            {
+                id: 37, part: 2,
+                q: "有兩艘外觀、構造完全相同的船停泊在海面上。甲船是空船，吃水較淺；乙船則載滿乘客，吃水較深，有關甲、乙兩船所受的力，下列敘述何者正確？",
+                img: "第37題圖片.png",
+                opts: ["(A) 由甲船吃水較淺可知，甲船受到的浮力較乙船大", "(B) 由乙船吃水較深可知，乙船受到的浮力小於船與乘客的總重量", "(C) 甲、乙兩船在水中秤得的重量皆等於零", "(D) 甲、乙兩船皆為浮體，因此所受到的浮力相等"],
+                ans: 2,
+                exp: "這兩艘船都好好地飄在水面上，代表它們都是「浮體」。<br>⚠️ 浮體的終極密碼：**浮力 ＝ 物體的總重量！**<br><br>👉 乙船載滿人，總重量比較重，所以海必須給它「更大的浮力」才能撐起它（這也是為什麼它吃水比較深，要排開更多海水來產生浮力）。所以 (A) (D) 錯。<br>👉 乙船是浮體，浮力等於總重量。 (B) 錯。<br>✨ (C) 正確！因為浮力向上的力量，剛好把船向下壓的重量完全抵銷掉了。如果這時候拿個神奇彈簧秤在水裡吊著船，會發現重量是 0 喔！（這叫做視重為零）。"
+            },
+            {
+                id: 38, part: 2,
+                q: "將甲、乙、丙為三個不溶於水的實心球體，測得其質量和體積關係如表。若將它們投入裝滿水且容量為 10 公升的容器中，其所受的浮力大小分別為 B<sub>甲</sub>、B<sub>乙</sub> 及 B<sub>丙</sub>。下列敘述何者正確？",
+                img: "第38題圖片.png",
+                opts: ["(A) 甲乙為沉體", "(B) B<sub>甲</sub> > B<sub>乙</sub>", "(C) B<sub>丙</sub> > B<sub>乙</sub>", "(D) B<sub>甲</sub> > B<sub>丙</sub>"],
+                ans: 3,
+                exp: "我們先算出大家的密度 (密度 = 質量 ÷ 體積)，水的密度是 1：<br>甲：30 ÷ 75 = 0.4 (小於1，是浮體)<br>乙：40 ÷ 50 = 0.8 (小於1，是浮體)<br>丙：60 ÷ 20 = 3 (大於1，會沉下去)<br><br>接著算浮力：<br>👉 甲是浮體：浮力 = 物重 = 30 gw。<br>👉 乙是浮體：浮力 = 物重 = 40 gw。<br>👉 丙是沉體：浮力 = 排開水的體積 × 水的密度 = 20(它的體積) × 1 = 20 gw。<br><br>比大小：乙(40) > 甲(30) > 丙(20)。<br>✨ 結論：B<sub>甲</sub>(30) 大於 B<sub>丙</sub>(20)，(D) 選項正確！"
+            },
+            {
+                id: 39, part: 2,
+                q: "胖虎被媽媽叫去洗碗，去到廚房看到水槽裡有一個陶瓷材質的碗放在水面上，已知陶瓷的密度大於水，原本碗內無水漂浮於水面上。胖虎碰碗一下使碗沉下去，則水槽的水面會...",
+                img: "第39題圖片.png",
+                opts: ["(A) 上升", "(B) 下降", "(C) 不變", "(D) 以上皆可能"],
+                ans: 1,
+                exp: "這是一題非常經典的進階題！<br>碗是用陶瓷做的，陶瓷比水重（密度大於水），但碗做成空心的形狀，所以能像船一樣「浮」在水上。<br><br>1. **碗浮著的時候**：它是浮體，浮力等於碗的總重量。為了產生這麼大的浮力，它必須排開「很多很多」的水。<br>2. **碗沉下去的時候**：它變成沉體了，裡面裝滿了水。這時候它排開水的體積，就只剩下「陶瓷那層殼本身的體積」，比浮著的時候排開的水少了很多。<br><br>✨ 因為排開的水變少了，水槽裡的水面就會跟著「下降」囉！"
+            },
+            {
+                id: 40, part: 2,
+                q: "沛沛做力的測量實驗，在彈簧下端懸掛不同重量砝碼，繪製出砝碼重量與彈簧全長關係圖：下列推論何者最不合理？",
+                img: "第40題圖片.png",
+                opts: ["(A) 砝碼重量與彈簧伸長量成正比", "(B) 懸掛砝碼每增加 20 公克重，彈簧長度就增加 2 公分", "(C) 若彈簧的全長為 15 公分，則懸掛的砝碼為 50 公克重", "(D) 200 公克重 的物體應使彈簧伸長 20 公分"],
+                ans: 3,
+                exp: "從圖表解密彈簧的個性：<br>1. 掛 0 gw 時長度是 10 cm，這就是彈簧的「原長」。<br>2. 掛 20 gw，長度變 12 cm (伸長 2 cm)。每掛 20 gw 就伸長 2 cm。 (A、B正確)<br>3. 全長 15 cm 代表伸長了 5 cm。 2cm 要 20gw，1cm 就是 10gw，那 5cm 就是掛了 50gw。 (C正確)<br><br>👉 為什麼 (D) 不合理？<br>彈簧是有極限的（叫做「彈性限度」）！這實驗只測到 80 gw，如果一口氣掛上超重的 200 gw，彈簧很可能會被「拉壞」變形，再也縮不回去。這時候虎克定律就不適用了，所以不能直接用倍數推算喔！"
+            }
+        ];
+
+        const { useState, useEffect } = React;
+
+        const Header = () => (
+            <header className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-10 py-4 mb-6">
+                <div className="max-w-4xl mx-auto px-4 flex items-center justify-center gap-3">
+                    <span className="text-3xl">🧪</span>
+                    <h1 className="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-green-500 tracking-wide">
+                        八下理化：魔法補考大挑戰3
+                    </h1>
+                    <span className="text-3xl">✨</span>
+                </div>
+            </header>
+        );
+
+        const QuestionCard = ({ item, index, selectedIdx, onSelect, isReviewMode }) => {
+            const showResult = selectedIdx !== undefined && selectedIdx !== null;
+
+            const handleSelect = (idx) => {
+                if (!showResult) {
+                    onSelect(item.id, idx, idx === item.ans);
+                }
+            };
+
+            const createMarkup = (htmlStr) => {
+                return { __html: htmlStr };
+            };
+
+            return (
+                <div className="mb-10 w-full max-w-3xl mx-auto fade-in">
+                    <div className="bg-white rounded-3xl shadow-[0_4px_20px_rgb(0,0,0,0.05)] overflow-hidden border border-gray-100">
+                        {/* Question Header */}
+                        <div className={`p-5 border-b border-gray-50 flex gap-3 ${isReviewMode ? 'bg-gradient-to-r from-rose-100 to-red-100' : 'bg-gradient-to-r from-blue-100 to-teal-100'}`}>
+                            <div className={`flex-shrink-0 w-10 h-10 bg-white rounded-full flex items-center justify-center font-black shadow-sm text-lg ${isReviewMode ? 'text-rose-600' : 'text-teal-600'}`}>
+                                {item.id}
+                            </div>
+                            <div className="text-lg font-bold text-gray-800 self-center leading-relaxed" 
+                                 dangerouslySetInnerHTML={createMarkup(item.q)} />
+                        </div>
+                        
+                        {/* Question Image */}
+                        {item.img && (
+                            <div className="p-4 bg-gray-50 flex justify-center border-b border-gray-100">
+                                <img src={item.img} alt={`第${item.id}題圖片`} className="max-w-full h-auto max-h-64 object-contain img-shadow rounded-lg border-2 border-white" />
+                            </div>
+                        )}
+
+                        {/* Options */}
+                        <div className="p-5 space-y-3">
+                            {item.opts.map((opt, idx) => {
+                                const isSelected = selectedIdx === idx;
+                                const isCorrect = idx === item.ans;
+                                
+                                let btnClass = "w-full text-left p-4 rounded-2xl border-2 transition-all duration-300 ease-out relative flex items-center gap-4 group ";
+                                let icon = null;
+
+                                if (!showResult) {
+                                    btnClass += isReviewMode 
+                                        ? "border-rose-50 bg-white hover:border-rose-300 hover:bg-rose-50 bouncy text-gray-700 cursor-pointer shadow-sm" 
+                                        : "border-blue-50 bg-white hover:border-teal-300 hover:bg-teal-50 bouncy text-gray-700 cursor-pointer shadow-sm";
+                                    icon = <div className={`w-6 h-6 rounded-full border-2 ${isReviewMode ? 'border-gray-300 group-hover:border-rose-400' : 'border-gray-300 group-hover:border-teal-400'}`}></div>;
+                                } else {
+                                    btnClass += " cursor-default ";
+                                    if (isCorrect) {
+                                        btnClass += "border-green-400 bg-green-50 text-green-800 shadow-md transform scale-[1.01]";
+                                        icon = <div className="flex-shrink-0 w-7 h-7 rounded-full bg-green-500 text-white flex items-center justify-center shadow-sm"><i className="fas fa-check"></i></div>;
+                                    } else if (isSelected && !isCorrect) {
+                                        btnClass += "border-red-300 bg-red-50 text-red-700 opacity-90";
+                                        icon = <div className="flex-shrink-0 w-7 h-7 rounded-full bg-red-400 text-white flex items-center justify-center shadow-sm"><i className="fas fa-times"></i></div>;
+                                    } else {
+                                        btnClass += "border-gray-100 bg-gray-50 text-gray-400";
+                                        icon = <div className="w-6 h-6 rounded-full border-2 border-gray-200"></div>;
+                                    }
+                                }
+
+                                return (
+                                    <button 
+                                        key={idx} 
+                                        onClick={() => handleSelect(idx)}
+                                        className={btnClass}
+                                        disabled={showResult}
+                                    >
+                                        {icon}
+                                        <span className="text-base md:text-lg" dangerouslySetInnerHTML={createMarkup(opt)} />
+                                    </button>
+                                );
+                            })}
+                        </div>
+
+                        {/* Explanation Box */}
+                        {showResult && (
+                            <div className="m-5 mt-0 bg-yellow-50 border-2 border-yellow-300 rounded-2xl p-6 relative fade-in">
+                                <div className="absolute -top-4 left-6 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white px-5 py-1.5 rounded-full font-bold shadow-md flex items-center gap-2 tracking-wider">
+                                    <i className="fas fa-lightbulb"></i> ✨ 觀念大補帖
+                                </div>
+                                <div className="mt-3 text-gray-800 leading-relaxed text-base md:text-lg">
+                                    {selectedIdx === item.ans ? 
+                                        <div className="mb-3 font-bold text-green-600 flex items-center gap-2">
+                                            <i className="fas fa-party-horn"></i>
+                                            {isReviewMode ? "太棒了！你成功克服這題了 🎉" : "太棒了！答對囉 🎉"}
+                                        </div> : 
+                                        <div className="mb-3 font-bold text-red-500 flex items-center gap-2">
+                                            <i className="fas fa-face-thinking"></i>哎呀，再想想看！來看看哪裡卡住了 🤔
+                                        </div>
+                                    }
+                                    <div className="space-y-2 border-t border-yellow-200 pt-3" dangerouslySetInnerHTML={createMarkup(item.exp)} />
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        const App = () => {
+            const [activeTab, setActiveTab] = useState('part1');
+            const [answers, setAnswers] = useState({});
+            const [reviewAnswers, setReviewAnswers] = useState({});
+            const [wrongIds, setWrongIds] = useState([]);
+
+            const handleSelect = (qId, idx, isCorrect) => {
+                if (activeTab === 'review') {
+                    setReviewAnswers(prev => ({ ...prev, [qId]: idx }));
+                } else {
+                    setAnswers(prev => ({ ...prev, [qId]: idx }));
+                    if (!isCorrect) {
+                        setWrongIds(prev => prev.includes(qId) ? prev : [...prev, qId]);
+                    }
+                }
+            };
+
+            const resetReview = () => {
+                setReviewAnswers({});
+            };
+
+            // Scroll to top when switching parts
+            useEffect(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, [activeTab]);
+
+            let currentQuestions = [];
+            if (activeTab === 'part1') currentQuestions = questions.filter(q => q.part === 1);
+            else if (activeTab === 'part2') currentQuestions = questions.filter(q => q.part === 2);
+            else if (activeTab === 'review') currentQuestions = questions.filter(q => wrongIds.includes(q.id));
+
+            return (
+                <div className="min-h-screen pb-20">
+                    <Header />
+                    
+                    {/* Tab Navigation */}
+                    <div className="max-w-3xl mx-auto px-4 mb-8 flex flex-wrap gap-4">
+                        <button 
+                            onClick={() => setActiveTab('part1')}
+                            className={`flex-1 min-w-[100px] py-3 px-4 rounded-2xl font-bold text-base md:text-lg transition-all duration-300 shadow-sm ${activeTab === 'part1' ? 'bg-teal-500 text-white shadow-md transform -translate-y-1' : 'bg-white text-gray-500 hover:bg-teal-50'}`}
+                        >
+                            第一部份 (1~20)
+                        </button>
+                        <button 
+                            onClick={() => setActiveTab('part2')}
+                            className={`flex-1 min-w-[100px] py-3 px-4 rounded-2xl font-bold text-base md:text-lg transition-all duration-300 shadow-sm ${activeTab === 'part2' ? 'bg-teal-500 text-white shadow-md transform -translate-y-1' : 'bg-white text-gray-500 hover:bg-teal-50'}`}
+                        >
+                            第二部份 (21~40)
+                        </button>
+                        <button 
+                            onClick={() => setActiveTab('review')}
+                            className={`flex-1 min-w-[100px] py-3 px-4 rounded-2xl font-bold text-base md:text-lg transition-all duration-300 shadow-sm relative ${activeTab === 'review' ? 'bg-rose-500 text-white shadow-md transform -translate-y-1' : 'bg-white text-gray-500 hover:bg-rose-50'}`}
+                        >
+                            錯題複習
+                            {wrongIds.length > 0 && (
+                                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-black px-2 py-1 rounded-full shadow-md animate-bounce">
+                                    {wrongIds.length}
+                                </span>
+                            )}
+                        </button>
+                    </div>
+
+                    {/* Question List or Empty State */}
+                    {activeTab === 'review' && wrongIds.length === 0 ? (
+                        <div className="text-center py-20 bg-white rounded-3xl shadow-sm border border-gray-100 max-w-3xl mx-auto px-4 fade-in">
+                            <div className="text-6xl mb-4">🌟</div>
+                            <h2 className="text-2xl md:text-3xl font-bold text-teal-600 mb-2">太棒了！目前沒有錯題喔！</h2>
+                            <p className="text-gray-500 text-lg">繼續保持，你是理化小天才！</p>
+                        </div>
+                    ) : (
+                        <div className="px-4">
+                            {activeTab === 'review' && (
+                                <div className="max-w-3xl mx-auto mb-6 flex justify-between items-center fade-in">
+                                    <h2 className="text-xl font-bold text-rose-600">
+                                        <i className="fas fa-fire mr-2"></i>錯題特訓區
+                                    </h2>
+                                    <button 
+                                        onClick={resetReview}
+                                        className="px-4 py-2 bg-rose-100 text-rose-600 rounded-full font-bold hover:bg-rose-200 transition-colors text-sm shadow-sm"
+                                    >
+                                        <i className="fas fa-redo mr-1"></i> 重新測驗
+                                    </button>
+                                </div>
+                            )}
+                            
+                            {currentQuestions.map((q, idx) => (
+                                <QuestionCard 
+                                    key={`${activeTab}-${q.id}`} 
+                                    item={q} 
+                                    index={idx} 
+                                    selectedIdx={activeTab === 'review' ? reviewAnswers[q.id] : answers[q.id]}
+                                    onSelect={handleSelect}
+                                    isReviewMode={activeTab === 'review'}
+                                />
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Footer */}
+                    <div className="text-center mt-12 text-gray-400 font-medium pb-8">
+                        <p>勇敢挑戰，理化一點都不難！💪</p>
+                    </div>
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
